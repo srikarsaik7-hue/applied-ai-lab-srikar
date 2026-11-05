@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, ArrowUpDown, ArrowUp, ArrowDown, Download, ChevronRight, ChevronDown, Check, TrendingDown, TrendingUp } from 'lucide-react';
+import { Table, ArrowUpDown, ArrowUp, ArrowDown, Download, TrendingDown, TrendingUp } from 'lucide-react';
 import { RegionSummary, VarianceAnalysis } from '../types';
 import { formatCurrency, formatPercent } from '../utils/salesAnalytics';
 
@@ -20,7 +20,6 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 }) => {
   const [sortField, setSortField] = useState<SortField>('total');
   const [sortAsc, setSortAsc] = useState<boolean>(false);
-  const [copied, setCopied] = useState<boolean>(false);
 
   if (!regions || regions.length === 0) return null;
 
@@ -104,32 +103,32 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
   const renderSortIcon = (field: SortField) => {
     if (sortField !== field) {
-      return <ArrowUpDown className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" />;
+      return <ArrowUpDown className="w-3.5 h-3.5 opacity-30 group-hover:opacity-100 transition-opacity" />;
     }
     return sortAsc ? (
-      <ArrowUp className="w-3.5 h-3.5 text-blue-600 font-bold" />
+      <ArrowUp className="w-3.5 h-3.5 text-violet-400 font-bold" />
     ) : (
-      <ArrowDown className="w-3.5 h-3.5 text-blue-600 font-bold" />
+      <ArrowDown className="w-3.5 h-3.5 text-violet-400 font-bold" />
     );
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 transition-all hover:shadow-md">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+    <div className="relative overflow-hidden bg-[#161426]/90 backdrop-blur-md rounded-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.36)] p-5 sm:p-6 transition-all hover:border-white/[0.12]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-violet-500/10 text-violet-400 rounded-xl border border-violet-500/20">
               <Table className="w-5 h-5" />
-            </span>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900">
+            </div>
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
               Regional Revenue Matrix
             </h3>
-            <span className="text-xs bg-slate-100 text-slate-700 font-mono px-2 py-0.5 rounded-full">
-              {regions.length} Regions Analyzed
+            <span className="text-xs bg-white/[0.06] text-zinc-300 font-mono px-2.5 py-0.5 rounded-full border border-white/[0.08]">
+              {regions.length} Territories
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Full arithmetic reconciliation across Q1, Q2, and Q3 with Q2-to-Q3 variance metrics
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+            Complete quarterly aggregation across Q1, Q2, and Q3 with Q2-to-Q3 variance analysis
           </p>
         </div>
 
@@ -137,22 +136,22 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-zinc-200 bg-white/[0.06] hover:bg-white/[0.1] hover:text-white rounded-xl border border-white/[0.08] transition-all cursor-pointer shadow-sm"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-zinc-400" />
             Export Pivot CSV
           </button>
         </div>
       </div>
 
       {/* Responsive Table */}
-      <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200/70">
+      <div className="mt-4 overflow-x-auto rounded-xl border border-white/[0.08]">
         <table className="w-full text-left text-xs sm:text-sm">
-          <thead className="bg-slate-50/90 text-slate-600 font-semibold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+          <thead className="bg-[#110e20]/90 text-zinc-400 font-semibold border-b border-white/[0.08] uppercase tracking-wider text-[11px]">
             <tr>
               <th
                 onClick={() => handleSort('region')}
-                className="py-3 px-4 cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 cursor-pointer hover:bg-white/[0.04] transition-colors group select-none text-zinc-300"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Region</span>
@@ -162,10 +161,10 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
               <th
                 onClick={() => handleSort('q1')}
-                className="py-3 px-4 text-right cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 text-right cursor-pointer hover:bg-white/[0.04] transition-colors group select-none"
               >
                 <div className="flex items-center justify-end gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-indigo-500 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-violet-500 inline-block" />
                   <span>Q1 Revenue</span>
                   {renderSortIcon('q1')}
                 </div>
@@ -173,10 +172,10 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
               <th
                 onClick={() => handleSort('q2')}
-                className="py-3 px-4 text-right cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 text-right cursor-pointer hover:bg-white/[0.04] transition-colors group select-none"
               >
                 <div className="flex items-center justify-end gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
                   <span>Q2 Revenue</span>
                   {renderSortIcon('q2')}
                 </div>
@@ -184,10 +183,10 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
               <th
                 onClick={() => handleSort('q3')}
-                className="py-3 px-4 text-right cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 text-right cursor-pointer hover:bg-white/[0.04] transition-colors group select-none"
               >
                 <div className="flex items-center justify-end gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
                   <span>Q3 Revenue</span>
                   {renderSortIcon('q3')}
                 </div>
@@ -195,7 +194,7 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
               <th
                 onClick={() => handleSort('total')}
-                className="py-3 px-4 text-right cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 text-right cursor-pointer hover:bg-white/[0.04] transition-colors group select-none"
               >
                 <div className="flex items-center justify-end gap-1.5">
                   <span>Total Revenue</span>
@@ -205,7 +204,7 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
               <th
                 onClick={() => handleSort('diff')}
-                className="py-3 px-4 text-right cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 text-right cursor-pointer hover:bg-white/[0.04] transition-colors group select-none"
               >
                 <div className="flex items-center justify-end gap-1.5">
                   <span>Q2 → Q3 Δ ($)</span>
@@ -215,7 +214,7 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
               <th
                 onClick={() => handleSort('pct')}
-                className="py-3 px-4 text-right cursor-pointer hover:bg-slate-100 transition-colors group select-none"
+                className="py-3.5 px-4 text-right cursor-pointer hover:bg-white/[0.04] transition-colors group select-none"
               >
                 <div className="flex items-center justify-end gap-1.5">
                   <span>Q2 → Q3 Δ (%)</span>
@@ -223,13 +222,13 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
                 </div>
               </th>
 
-              <th className="py-3 px-4 text-center select-none">
-                Variance Status
+              <th className="py-3.5 px-4 text-center select-none">
+                Trajectory
               </th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-slate-100 font-normal">
+          <tbody className="divide-y divide-white/[0.04] font-normal">
             {sortedRegions.map((row) => {
               const isMostChanged = row.region === varianceAnalysis?.mostChangedRegion;
               const isSelected = row.region === selectedRegion;
@@ -239,38 +238,38 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
                 <tr
                   key={row.region}
                   onClick={() => onSelectRegion?.(row.region)}
-                  className={`hover:bg-slate-50/80 transition-colors cursor-pointer ${
-                    isSelected ? 'bg-blue-50/50 font-medium' : ''
-                  } ${isMostChanged ? 'bg-rose-50/30' : ''}`}
+                  className={`hover:bg-white/[0.04] transition-colors cursor-pointer ${
+                    isSelected ? 'bg-violet-600/20 font-medium' : ''
+                  } ${isMostChanged ? 'bg-rose-500/[0.08]' : ''}`}
                 >
-                  <td className="py-3.5 px-4 font-semibold text-slate-900 flex items-center gap-2">
+                  <td className="py-3.5 px-4 font-semibold text-white flex items-center gap-2">
                     <span>{row.region}</span>
                     {isMostChanged && (
-                      <span className="text-[10px] font-bold tracking-tight text-rose-700 bg-rose-100 px-1.5 py-0.5 rounded border border-rose-200">
+                      <span className="text-[10px] font-bold tracking-tight text-rose-300 bg-rose-500/20 px-2 py-0.5 rounded-full border border-rose-500/30">
                         Max Change
                       </span>
                     )}
                   </td>
 
-                  <td className="py-3.5 px-4 text-right font-mono text-slate-700">
+                  <td className="py-3.5 px-4 text-right font-mono text-zinc-300">
                     {formatCurrency(row.q1Revenue)}
                   </td>
 
-                  <td className="py-3.5 px-4 text-right font-mono text-slate-700">
+                  <td className="py-3.5 px-4 text-right font-mono text-zinc-300">
                     {formatCurrency(row.q2Revenue)}
                   </td>
 
-                  <td className="py-3.5 px-4 text-right font-mono text-slate-700">
+                  <td className="py-3.5 px-4 text-right font-mono text-zinc-300">
                     {formatCurrency(row.q3Revenue)}
                   </td>
 
-                  <td className="py-3.5 px-4 text-right font-mono font-bold text-slate-900">
+                  <td className="py-3.5 px-4 text-right font-mono font-bold text-white">
                     {formatCurrency(row.totalRevenue)}
                   </td>
 
                   <td
                     className={`py-3.5 px-4 text-right font-mono font-semibold ${
-                      isDec ? 'text-rose-600' : 'text-emerald-600'
+                      isDec ? 'text-rose-400' : 'text-emerald-400'
                     }`}
                   >
                     {row.q2ToQ3Diff > 0 ? `+${formatCurrency(row.q2ToQ3Diff)}` : formatCurrency(row.q2ToQ3Diff)}
@@ -278,7 +277,7 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
                   <td
                     className={`py-3.5 px-4 text-right font-mono font-semibold ${
-                      isDec ? 'text-rose-600' : 'text-emerald-600'
+                      isDec ? 'text-rose-400' : 'text-emerald-400'
                     }`}
                   >
                     {formatPercent(row.q2ToQ3PctChange)}
@@ -286,17 +285,17 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
 
                   <td className="py-3.5 px-4 text-center">
                     {isMostChanged ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-700 bg-rose-100/80 px-2 py-0.5 rounded-full">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-300 bg-rose-500/20 px-2.5 py-0.5 rounded-full border border-rose-500/30">
                         <TrendingDown className="w-3 h-3" />
                         Largest Shift
                       </span>
                     ) : isDec ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-300 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/25">
                         <TrendingDown className="w-3 h-3" />
                         Contracted
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/50">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-300 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/25">
                         <TrendingUp className="w-3 h-3" />
                         Grew
                       </span>
@@ -308,28 +307,28 @@ export const RevenueTable: React.FC<RevenueTableProps> = ({
           </tbody>
 
           {/* Table Footer Totals */}
-          <tfoot className="bg-slate-100/90 font-bold text-slate-900 border-t-2 border-slate-300">
+          <tfoot className="bg-[#110e20]/95 font-bold text-white border-t border-white/[0.12]">
             <tr>
-              <td className="py-3.5 px-4 uppercase tracking-wider text-xs">Grand Total</td>
-              <td className="py-3.5 px-4 text-right font-mono text-slate-800">{formatCurrency(totalQ1)}</td>
-              <td className="py-3.5 px-4 text-right font-mono text-slate-800">{formatCurrency(totalQ2)}</td>
-              <td className="py-3.5 px-4 text-right font-mono text-slate-800">{formatCurrency(totalQ3)}</td>
-              <td className="py-3.5 px-4 text-right font-mono text-blue-900 font-extrabold">{formatCurrency(grandTotal)}</td>
+              <td className="py-3.5 px-4 uppercase tracking-wider text-xs text-zinc-300">Grand Total</td>
+              <td className="py-3.5 px-4 text-right font-mono text-zinc-200">{formatCurrency(totalQ1)}</td>
+              <td className="py-3.5 px-4 text-right font-mono text-zinc-200">{formatCurrency(totalQ2)}</td>
+              <td className="py-3.5 px-4 text-right font-mono text-zinc-200">{formatCurrency(totalQ3)}</td>
+              <td className="py-3.5 px-4 text-right font-mono text-violet-300 font-extrabold">{formatCurrency(grandTotal)}</td>
               <td
                 className={`py-3.5 px-4 text-right font-mono ${
-                  totalDiff < 0 ? 'text-rose-700' : 'text-emerald-700'
+                  totalDiff < 0 ? 'text-rose-400' : 'text-emerald-400'
                 }`}
               >
                 {totalDiff > 0 ? `+${formatCurrency(totalDiff)}` : formatCurrency(totalDiff)}
               </td>
               <td
                 className={`py-3.5 px-4 text-right font-mono ${
-                  totalDiff < 0 ? 'text-rose-700' : 'text-emerald-700'
+                  totalDiff < 0 ? 'text-rose-400' : 'text-emerald-400'
                 }`}
               >
                 {formatPercent(totalPctChange)}
               </td>
-              <td className="py-3.5 px-4 text-center text-xs font-semibold text-slate-500">
+              <td className="py-3.5 px-4 text-center text-xs font-semibold text-zinc-400">
                 All Territories
               </td>
             </tr>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, ShoppingBag, Store, Percent, Box, ArrowRight, TrendingDown, TrendingUp } from 'lucide-react';
+import { Layers, ShoppingBag, Store, Percent, Box, TrendingDown, TrendingUp } from 'lucide-react';
 import { SalesOrder, RegionSummary } from '../types';
 import { formatCurrency, formatPercent } from '../utils/salesAnalytics';
 
@@ -79,28 +79,28 @@ export const RegionalDrilldown: React.FC<RegionalDrilldownProps> = ({
   const isNetDecrease = netDiff < 0;
 
   return (
-    <div className="bg-slate-900 text-white rounded-2xl border border-slate-800 shadow-lg p-5 sm:p-6 transition-all">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+    <div className="relative overflow-hidden bg-[#161426]/90 backdrop-blur-md rounded-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.36)] p-5 sm:p-6 transition-all hover:border-white/[0.12] text-white">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-blue-500/20 text-blue-400 rounded-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-violet-500/10 text-violet-400 rounded-xl border border-violet-500/20">
               <Layers className="w-5 h-5" />
-            </span>
-            <h3 className="text-lg font-bold text-white">
+            </div>
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
               {selectedRegion} Regional Drilldown: Q2 vs Q3 Drivers
             </h3>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-              Verified Underlying Arithmetic
+            <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-violet-500/15 text-violet-300 border border-violet-500/25">
+              Verified Arithmetic
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
             Product lines, sales channels, volume quantities, and discount rates for {selectedRegion}
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-right">
-            <span className="text-[10px] uppercase font-bold text-slate-400 block">Q2 → Q3 Net Delta</span>
+          <div className="px-3.5 py-1.5 rounded-xl bg-[#110e20]/90 border border-white/[0.08] text-right">
+            <span className="text-[10px] uppercase font-semibold text-zinc-400 block">Q2 → Q3 Net Delta</span>
             <span className={`text-sm font-bold font-mono ${isNetDecrease ? 'text-rose-400' : 'text-emerald-400'}`}>
               {netDiff > 0 ? `+${formatCurrency(netDiff)}` : formatCurrency(netDiff)}
             </span>
@@ -111,23 +111,23 @@ export const RegionalDrilldown: React.FC<RegionalDrilldownProps> = ({
       {/* Grid of Drivers */}
       <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Product Shifts */}
-        <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-700/60">
+        <div className="bg-[#110e20]/80 rounded-xl p-4 sm:p-5 border border-white/[0.08] shadow-sm">
+          <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.06]">
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-indigo-400" />
-              <span className="text-sm font-bold text-slate-200">Product Revenue Shifts</span>
+              <ShoppingBag className="w-4 h-4 text-violet-400" />
+              <span className="text-sm font-bold text-zinc-100">Product Line Variance</span>
             </div>
-            <span className="text-xs text-slate-400">Q2 vs Q3</span>
+            <span className="text-xs text-zinc-400">Q2 vs Q3</span>
           </div>
 
           <div className="space-y-3">
             {productList.map(p => {
               const isDec = p.diff < 0;
               return (
-                <div key={p.name} className="flex items-center justify-between text-xs sm:text-sm py-1.5 border-b border-slate-700/30 last:border-0">
-                  <div className="flex-1">
-                    <span className="font-semibold text-slate-200 block">{p.name}</span>
-                    <span className="text-[11px] text-slate-400 font-mono">
+                <div key={p.name} className="flex items-center justify-between text-xs sm:text-sm py-2 border-b border-white/[0.04] last:border-0">
+                  <div className="flex-1 pr-3">
+                    <span className="font-semibold text-white block">{p.name}</span>
+                    <span className="text-[11px] text-zinc-400 font-mono">
                       {formatCurrency(p.q2)} (Q2) → {formatCurrency(p.q3)} (Q3)
                     </span>
                   </div>
@@ -145,74 +145,71 @@ export const RegionalDrilldown: React.FC<RegionalDrilldownProps> = ({
           </div>
         </div>
 
-        {/* Channel & Volume Shifts */}
-        <div className="space-y-4">
-          <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60">
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-700/60">
-              <div className="flex items-center gap-2">
-                <Store className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm font-bold text-slate-200">Channel Distribution</span>
-              </div>
-              <span className="text-xs text-slate-400">Shift</span>
+        {/* Channel Shifts */}
+        <div className="bg-[#110e20]/80 rounded-xl p-4 sm:p-5 border border-white/[0.08] shadow-sm">
+          <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.06]">
+            <div className="flex items-center gap-2">
+              <Store className="w-4 h-4 text-fuchsia-400" />
+              <span className="text-sm font-bold text-zinc-100">Channel Performance</span>
             </div>
-
-            <div className="space-y-3">
-              {channelList.map(c => {
-                const isDec = c.diff < 0;
-                return (
-                  <div key={c.name} className="flex items-center justify-between text-xs sm:text-sm py-1 border-b border-slate-700/30 last:border-0">
-                    <div className="flex-1">
-                      <span className="font-semibold text-slate-200">{c.name}</span>
-                      <span className="text-[11px] text-slate-400 block font-mono">
-                        {formatCurrency(c.q2)} to {formatCurrency(c.q3)}
-                      </span>
-                    </div>
-                    <div className="text-right">
-                      <span className={`font-mono font-bold ${isDec ? 'text-rose-400' : 'text-emerald-400'}`}>
-                        {c.diff > 0 ? `+${formatCurrency(c.diff)}` : formatCurrency(c.diff)}
-                      </span>
-                      <span className={`text-[11px] block font-semibold ${isDec ? 'text-rose-400' : 'text-emerald-400'}`}>
-                        {formatPercent(c.pct)}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <span className="text-xs text-zinc-400">Q2 vs Q3</span>
           </div>
 
-          {/* Operational Metrics Cards */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-3.5 bg-slate-800/60 rounded-xl border border-slate-700/60">
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-1">
-                <Box className="w-3.5 h-3.5 text-blue-400" />
-                <span>Unit Sales Volume</span>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-lg font-bold font-mono text-white">
-                  {q3Units - q2Units > 0 ? `+${q3Units - q2Units}` : q3Units - q2Units}
-                </span>
-                <span className="text-xs text-slate-400">units</span>
-              </div>
-              <p className="text-[11px] text-slate-400 mt-1 font-mono">
-                {q2Units} (Q2) → {q3Units} (Q3)
-              </p>
-            </div>
+          <div className="space-y-3">
+            {channelList.map(c => {
+              const isDec = c.diff < 0;
+              return (
+                <div key={c.name} className="flex items-center justify-between text-xs sm:text-sm py-2 border-b border-white/[0.04] last:border-0">
+                  <div className="flex-1 pr-3">
+                    <span className="font-semibold text-white block">{c.name} Channel</span>
+                    <span className="text-[11px] text-zinc-400 font-mono">
+                      {formatCurrency(c.q2)} (Q2) → {formatCurrency(c.q3)} (Q3)
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className={`font-mono font-bold block ${isDec ? 'text-rose-400' : 'text-emerald-400'}`}>
+                      {c.diff > 0 ? `+${formatCurrency(c.diff)}` : formatCurrency(c.diff)}
+                    </span>
+                    <span className={`text-[11px] font-semibold ${isDec ? 'text-rose-400' : 'text-emerald-400'}`}>
+                      {formatPercent(c.pct)}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
 
-            <div className="p-3.5 bg-slate-800/60 rounded-xl border border-slate-700/60">
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-1">
-                <Percent className="w-3.5 h-3.5 text-amber-400" />
-                <span>Avg Discount Rate</span>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-lg font-bold font-mono text-amber-300">
-                  {discDelta > 0 ? `+${discDelta.toFixed(2)}%` : `${discDelta.toFixed(2)}%`}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 mt-1 font-mono">
-                {q2AvgDisc.toFixed(2)}% (Q2) → {q3AvgDisc.toFixed(2)}% (Q3)
-              </p>
-            </div>
+      {/* Operational Factors Strip */}
+      <div className="mt-6 pt-5 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#110e20]/80 border border-white/[0.08]">
+          <div className="p-2.5 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20">
+            <Box className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-xs text-zinc-400 font-medium block">Unit Sales Volume</span>
+            <span className="text-base font-bold text-white font-mono">
+              {q2Units} units (Q2) → {q3Units} units (Q3)
+            </span>
+            <span className={`text-xs block font-semibold ${q3Units - q2Units < 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+              {q3Units - q2Units > 0 ? `+${q3Units - q2Units}` : q3Units - q2Units} units net variance
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#110e20]/80 border border-white/[0.08]">
+          <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <Percent className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-xs text-zinc-400 font-medium block">Average Discount Rate</span>
+            <span className="text-base font-bold text-white font-mono">
+              {q2AvgDisc.toFixed(1)}% (Q2) → {q3AvgDisc.toFixed(1)}% (Q3)
+            </span>
+            <span className={`text-xs block font-semibold ${discDelta > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
+              {discDelta > 0 ? `+${discDelta.toFixed(2)}` : discDelta.toFixed(2)} percentage points shift
+            </span>
           </div>
         </div>
       </div>

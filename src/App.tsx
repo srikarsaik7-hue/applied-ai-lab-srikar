@@ -15,6 +15,8 @@ import {
   ShieldCheck,
   RefreshCw,
   ExternalLink,
+  ChevronRight,
+  Zap,
 } from 'lucide-react';
 import { UploadDropzone } from './components/UploadDropzone';
 import { ExecutiveMetrics } from './components/ExecutiveMetrics';
@@ -152,25 +154,35 @@ export default function App() {
   }, [handleDataLoaded]);
 
   return (
-    <div className="min-h-screen bg-slate-100/70 text-slate-900 font-sans antialiased flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Top Enterprise Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
+    <div className="relative min-h-screen bg-[#0c0b14] text-zinc-100 font-sans antialiased flex flex-col selection:bg-violet-600 selection:text-white">
+      {/* Gamma AI Ambient Luminous Aura */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-[180px] left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-violet-600/15 via-purple-600/10 to-transparent blur-[120px] rounded-full" />
+        <div className="absolute top-[35%] -left-[150px] w-[500px] h-[500px] bg-indigo-600/8 blur-[140px] rounded-full" />
+        <div className="absolute top-[60%] -right-[150px] w-[450px] h-[450px] bg-fuchsia-600/8 blur-[140px] rounded-full" />
+      </div>
+
+      {/* Top Gamma-Inspired Glass Navigation Bar */}
+      <header className="sticky top-0 z-40 bg-[#0e0d18]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-              <BarChart3 className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-indigo-600 p-[1.5px] shadow-lg shadow-violet-500/25 flex items-center justify-center">
+              <div className="w-full h-full bg-[#12101e] rounded-[10px] flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-violet-400" />
+              </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+                <h1 className="text-base sm:text-lg font-bold text-white tracking-tight">
                   Regional Sales Intelligence
                 </h1>
-                <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-300 border border-violet-500/25">
+                  <span className="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
                   Q1–Q3 Analytics
                 </span>
               </div>
-              <p className="text-xs text-slate-500 hidden sm:block">
-                Automated text error reconciliation, regional quarterly pivots &amp; verified AI summaries
+              <p className="text-xs text-zinc-400 hidden sm:block">
+                Automated data cleaning, quarterly regional matrix &amp; verified AI summaries
               </p>
             </div>
           </div>
@@ -180,11 +192,11 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setIsAuditModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-xl transition-colors cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-xl transition-all cursor-pointer shadow-sm shadow-emerald-950/40"
               >
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>
-                  <strong className="font-bold">{audit.totalCorrectionsCount}</strong> Text Errors Cleaned
+                  <strong className="font-bold text-emerald-200">{audit.totalCorrectionsCount}</strong> Fixed
                 </span>
               </button>
             )}
@@ -193,10 +205,10 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setIsDrawerOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-zinc-300 bg-white/[0.06] hover:bg-white/[0.1] hover:text-white border border-white/[0.08] rounded-xl transition-all cursor-pointer"
               >
-                <Database className="w-3.5 h-3.5 text-slate-500" />
-                <span className="hidden xs:inline">Inspect</span> Records ({orders.length})
+                <Database className="w-3.5 h-3.5 text-zinc-400" />
+                <span className="hidden xs:inline">Inspect</span> Records ({orders.length.toLocaleString()})
               </button>
             )}
           </div>
@@ -204,7 +216,7 @@ export default function App() {
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
+      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
         {/* 1. CSV Upload Dropzone & File Status */}
         <UploadDropzone
           onDataLoaded={handleDataLoaded}
@@ -226,7 +238,7 @@ export default function App() {
               regions={regions}
             />
 
-            {/* 3. The Requested AI 3-Sentence Summary Card */}
+            {/* 3. The Requested AI 3-Sentence Summary Card (Gamma Presentation Card) */}
             <AISummaryCard
               analysis={varianceAnalysis}
               aiResponse={aiResponse}
@@ -266,12 +278,14 @@ export default function App() {
             )}
           </>
         ) : (
-          <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-sm">
-            <FileSpreadsheet className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-base font-semibold text-slate-800">No Sales Data Loaded Yet</h3>
-            <p className="text-sm text-slate-500 max-w-md mx-auto mt-1 mb-4">
-              Upload your sales CSV with quarter, region, channel, product, units, discount_pct, and revenue
-              columns, or click below to load the sample dataset.
+          <div className="bg-[#161426]/90 backdrop-blur-md rounded-2xl border border-white/[0.08] p-12 text-center shadow-2xl">
+            <div className="w-16 h-16 rounded-2xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center mx-auto mb-4 text-zinc-400">
+              <FileSpreadsheet className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-semibold text-white">No Sales Data Loaded Yet</h3>
+            <p className="text-sm text-zinc-400 max-w-md mx-auto mt-1 mb-6">
+              Upload your regional sales CSV with quarter, region, channel, product, units, discount, and revenue
+              columns, or click below to load the verified sample dataset.
             </p>
           </div>
         )}
@@ -292,17 +306,19 @@ export default function App() {
         fileName={fileName}
       />
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-slate-200/80 bg-white py-5 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-            <span className="font-medium text-slate-700">Regional Sales Intelligence Engine</span>
-            <span>—</span>
-            <span>Ground-truth metrics, automatic human error cleaning &amp; Gemini 3.8 Flash</span>
+      {/* Footer in Gamma Style */}
+      <footer className="relative z-10 mt-auto border-t border-white/[0.08] bg-[#0c0b14]/90 backdrop-blur-md py-6 text-xs text-zinc-400">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="p-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-400">
+              <Sparkles className="w-3.5 h-3.5" />
+            </span>
+            <span className="font-semibold text-zinc-200">Regional Sales Intelligence</span>
+            <span className="text-zinc-600">·</span>
+            <span>Grounded calculations, human error reconciliation &amp; Gemini 3.8 Flash</span>
           </div>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>Automated Cleaning: Region casing, extra spaces, channel variations &amp; product names</span>
+          <div className="text-zinc-500 text-center sm:text-right">
+            <span>Automated Cleaning: Region casing, whitespace trim &amp; product casing standardization</span>
           </div>
         </div>
       </footer>

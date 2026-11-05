@@ -93,51 +93,58 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
   const regionFixCount = audit?.correctionsByColumn['region'] || 0;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 transition-all hover:shadow-md">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+    <div className="relative overflow-hidden bg-[#161426]/90 backdrop-blur-md rounded-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.36)] p-5 sm:p-6 transition-all hover:border-white/[0.12]">
+      {/* Subtle top card glow */}
+      <div className="absolute top-0 right-10 w-48 h-20 bg-violet-500/10 rounded-full blur-2xl pointer-events-none" />
+
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-violet-500/10 text-violet-400 rounded-xl border border-violet-500/20">
               <FileSpreadsheet className="w-5 h-5" />
-            </span>
-            <h2 className="text-lg font-semibold text-slate-900">Dataset Ingestion &amp; Hygiene</h2>
-            <span className="text-xs bg-emerald-50 text-emerald-700 font-medium px-2 py-0.5 rounded-full border border-emerald-200">
-              Clean Text Engine Active
-            </span>
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">Dataset Ingestion &amp; Hygiene</h2>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                  Clean Engine
+                </span>
+              </div>
+              <p className="text-xs text-zinc-400 mt-0.5">
+                Required schema: <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">quarter</code>,{' '}
+                <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">region</code>,{' '}
+                <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">channel</code>,{' '}
+                <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">product</code>,{' '}
+                <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">units</code>,{' '}
+                <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">discount_pct</code>,{' '}
+                <code className="text-violet-300 bg-white/[0.06] px-1 py-0.5 rounded font-mono text-[11px]">revenue</code>
+              </p>
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Accepts CSV columns <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">quarter</code>,{' '}
-            <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">region</code>,{' '}
-            <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">channel</code>,{' '}
-            <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">product</code>,{' '}
-            <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">units</code>,{' '}
-            <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">discount_pct</code>,{' '}
-            <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">revenue</code>
-          </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={handleSampleLoad}
             disabled={isFetchingSample || isLoading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-medium text-blue-700 bg-blue-50/80 hover:bg-blue-100 rounded-xl border border-blue-200/60 transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-violet-200 bg-violet-500/15 hover:bg-violet-500/25 rounded-xl border border-violet-500/30 transition-all cursor-pointer disabled:opacity-50"
           >
             {isFetchingSample ? (
-              <RefreshCw className="w-4 h-4 animate-spin" />
+              <RefreshCw className="w-4 h-4 animate-spin text-violet-300" />
             ) : (
-              <Sparkles className="w-4 h-4 text-blue-600" />
+              <Sparkles className="w-4 h-4 text-violet-400" />
             )}
-            Load Sample Dataset
+            <span>Load Sample Data</span>
           </button>
 
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-xl shadow-lg shadow-violet-600/25 transition-all cursor-pointer hover:shadow-violet-600/40"
           >
             <UploadCloud className="w-4 h-4" />
-            Upload New CSV
+            <span>Upload CSV</span>
           </button>
           <input
             ref={fileInputRef}
@@ -159,22 +166,22 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={() => fileInputRef.current?.click()}
-        className={`mt-4 border-2 border-dashed rounded-xl p-5 sm:p-6 text-center cursor-pointer transition-all ${
+        className={`mt-4 border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
           isDragging
-            ? 'border-blue-500 bg-blue-50/50 scale-[0.99]'
-            : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/50'
+            ? 'border-violet-400 bg-violet-500/10 scale-[0.99]'
+            : 'border-white/[0.12] hover:border-violet-500/40 hover:bg-white/[0.02]'
         }`}
       >
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-hover:scale-105 transition-transform">
-            <UploadCloud className="w-5 h-5 text-slate-600" />
+          <div className="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:scale-105 transition-transform shadow-inner">
+            <UploadCloud className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-sm font-semibold text-slate-800">
-              Drop sales orders CSV here, or <span className="text-blue-600 underline">browse</span>
+            <span className="text-sm font-semibold text-zinc-100">
+              Drop sales orders CSV here, or <span className="text-violet-400 underline decoration-violet-400/60">browse files</span>
             </span>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Automated data cleaning handles human errors: merges &quot;West&quot; &amp; &quot;west&quot;, trims rogue spaces, and standardizes formats
+            <p className="text-xs text-zinc-400 mt-1">
+              Automated data cleaning automatically standardizes variations (e.g., &quot;West&quot; &amp; &quot;west&quot;), trims rogue spaces, and parses values
             </p>
           </div>
         </div>
@@ -182,14 +189,14 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
 
       {/* Active dataset status indicator with Data Cleansing Callout */}
       {currentFileName && (
-        <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl text-xs sm:text-sm">
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-3 bg-[#110f1e]/80 border border-white/[0.08] rounded-xl text-xs sm:text-sm">
           <div className="flex items-center gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span className="text-slate-600">Active File:</span>
-            <span className="font-semibold text-slate-900 truncate max-w-[240px] sm:max-w-xs md:max-w-md">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span className="text-zinc-400">Active File:</span>
+            <span className="font-semibold text-white truncate max-w-[240px] sm:max-w-xs md:max-w-md">
               {currentFileName}
             </span>
-            <span className="text-slate-400 font-mono">({totalOrdersCount.toLocaleString()} rows)</span>
+            <span className="text-zinc-500 font-mono">({totalOrdersCount.toLocaleString()} rows)</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -197,17 +204,17 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
               <button
                 type="button"
                 onClick={onOpenAudit}
-                className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100/80 hover:bg-emerald-200 text-emerald-800 rounded-lg font-semibold text-xs transition-colors border border-emerald-300/80 cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 rounded-lg font-semibold text-xs transition-colors border border-emerald-500/30 cursor-pointer shadow-sm"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>
-                  {audit.totalCorrectionsCount} Human {audit.totalCorrectionsCount === 1 ? 'Error' : 'Errors'} Cleaned
+                  {audit.totalCorrectionsCount} Text {audit.totalCorrectionsCount === 1 ? 'Error' : 'Errors'} Cleaned
                   {regionFixCount > 0 ? ` (${regionFixCount} 'west' → 'West')` : ''}
                 </span>
-                <span className="underline ml-0.5 text-emerald-900">View Audit</span>
+                <span className="underline ml-0.5 text-emerald-200">View Audit</span>
               </button>
             ) : (
-              <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded font-medium text-xs">
+              <span className="inline-flex items-center gap-1 text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full font-medium text-xs">
                 Zero Syntax Issues
               </span>
             )}
@@ -217,8 +224,8 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({
 
       {/* Upload Error notification */}
       {uploadError && (
-        <div className="mt-3 flex items-start gap-2 p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs sm:text-sm text-rose-700">
-          <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+        <div className="mt-3 flex items-start gap-2 p-3 bg-rose-500/15 border border-rose-500/30 rounded-xl text-xs sm:text-sm text-rose-300">
+          <AlertCircle className="w-4 h-4 mt-0.5 shrink-0 text-rose-400" />
           <span>{uploadError}</span>
         </div>
       )}
